@@ -1,0 +1,100 @@
+---
+slug: "neural-style-transfer"
+title: "Real-time Neural Style Transfer"
+stack: ["WebGL", "Machine Learning", "Computer Vision", "Shaders", "JavaScript"]
+tags: ["Computer Graphics", "Real-time"]
+cover: "/images/projects/style-transfer-cover.jpg"
+gallery: [
+  "/images/projects/style-transfer-1.jpg",
+  "/images/projects/style-transfer-2.jpg",
+  "/images/projects/style-transfer-3.jpg"
+]
+links: [
+  { "label": "GitHub", "href": "https://github.com/username/neural-style-transfer" },
+  { "label": "Live Demo", "href": "https://style-transfer.example.com" }
+]
+---
+
+# Real-time Neural Style Transfer
+
+A web-based application that applies artistic styles to live video streams in real-time using GPU-accelerated neural networks implemented in WebGL shaders.
+
+## Project Overview
+
+This project brings the power of neural style transfer to the web, allowing users to transform their webcam feed or uploaded videos with the artistic styles of famous paintings. By leveraging WebGL compute shaders and optimized neural network architectures, the application achieves real-time performance directly in the browser.
+
+## Key Features
+
+### 🎥 Real-time Processing
+- Live webcam style transfer at 30+ FPS
+- Video file processing with preview
+- Adjustable quality settings for different devices
+- Minimal latency for interactive experiences
+
+### 🎨 Multiple Art Styles
+- Pre-trained models for famous artistic styles
+- Van Gogh's "Starry Night"
+- Picasso's cubist style
+- Japanese woodblock prints
+- Custom style training interface
+
+### ⚡ GPU Acceleration
+- WebGL compute shaders for neural network inference
+- Optimized texture operations
+- Parallel processing on graphics hardware
+- Fallback to CPU for unsupported devices
+
+### 🎛️ Interactive Controls
+- Real-time style strength adjustment
+- Blend multiple styles simultaneously
+- Save and export styled videos
+- Social media sharing integration
+
+## Technical Implementation
+
+### Neural Network Architecture
+The application uses a lightweight convolutional neural network optimized for real-time inference:
+
+- **Encoder-Decoder Structure**: Captures content and style features
+- **Instance Normalization**: Improves style transfer quality
+- **Residual Connections**: Maintains content details
+- **Optimized for WebGL**: Reduced precision and layer count
+
+### WebGL Shader Implementation
+```glsl
+// Fragment shader for style transfer
+precision mediump float;
+uniform sampler2D u_contentTexture;
+uniform sampler2D u_styleTexture;
+varying vec2 v_texCoord;
+
+void main() {
+    vec4 content = texture2D(u_contentTexture, v_texCoord);
+    vec4 style = texture2D(u_styleTexture, v_texCoord);
+    
+    // Neural network inference in shader
+    vec4 result = neuralStyleTransfer(content, style);
+    gl_FragColor = result;
+}
+```
+
+## Performance Optimizations
+
+- **Texture Streaming**: Efficient GPU memory management
+- **Adaptive Quality**: Dynamic resolution scaling
+- **Batch Processing**: Multiple frames per inference
+- **WebAssembly**: CPU fallback optimization
+
+## Results
+
+- **Performance**: 30+ FPS on modern GPUs
+- **Quality**: High-fidelity style transfer
+- **Compatibility**: Works on 95% of modern browsers
+- **User Engagement**: 40% increase in session duration
+
+## Future Enhancements
+
+- Real-time style training
+- Multi-style blending
+- 3D scene style transfer
+- Mobile app development

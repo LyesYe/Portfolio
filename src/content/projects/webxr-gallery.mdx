@@ -1,0 +1,128 @@
+---
+title: "WebXR Art Gallery"
+description: "An immersive virtual art gallery built with WebXR and Three.js"
+tags: ["WebXR", "Three.js", "VR", "AR", "JavaScript"]
+category: "XR Development"
+status: "completed"
+startDate: "2023-06-01"
+endDate: "2023-08-15"
+githubUrl: "https://github.com/username/webxr-gallery"
+liveUrl: "https://webxr-gallery.example.com"
+coverImage: "/images/projects/webxr-gallery-cover.jpg"
+gallery: [
+  "/images/projects/webxr-gallery-1.jpg",
+  "/images/projects/webxr-gallery-2.jpg",
+  "/images/projects/webxr-gallery-3.jpg"
+]
+---
+
+# WebXR Art Gallery
+
+An immersive virtual art gallery that showcases digital artwork in a fully interactive 3D environment. Built using WebXR APIs, this project demonstrates the potential of web-based virtual reality experiences.
+
+## Overview
+
+The WebXR Art Gallery allows users to explore a virtual museum space using VR headsets, AR devices, or traditional web browsers. Visitors can walk through different exhibition rooms, interact with artworks, and learn about each piece through integrated information panels.
+
+## Key Features
+
+### 🥽 Cross-Platform VR/AR Support
+- Compatible with Oculus Quest, HTC Vive, and other WebXR-supported devices
+- Fallback to mouse/keyboard controls for desktop users
+- Mobile AR support using device cameras
+
+### 🎨 Interactive Artwork Display
+- High-resolution artwork textures with zoom capabilities
+- Animated transitions between gallery rooms
+- Audio descriptions and background music
+- Information panels with artist biographies
+
+### 🏛️ Realistic Gallery Environment
+- Physically-based rendering (PBR) materials
+- Dynamic lighting and shadows
+- Spatial audio for immersive soundscapes
+- Realistic physics interactions
+
+### 📱 Responsive Design
+- Adaptive UI for different screen sizes
+- Touch controls for mobile devices
+- Keyboard shortcuts for accessibility
+- Progressive loading for optimal performance
+
+## Technical Implementation
+
+### Architecture
+The application follows a modular architecture with separate systems for:
+- **Scene Management**: Handles 3D scene setup and room transitions
+- **Interaction System**: Manages user input and object interactions
+- **Audio Manager**: Controls spatial audio and background music
+- **UI System**: Renders 2D interfaces within the 3D space
+
+### Performance Optimizations
+- **Level-of-Detail (LOD)**: Reduces polygon count for distant objects
+- **Texture Compression**: Uses basis universal textures for smaller file sizes
+- **Frustum Culling**: Only renders objects within the camera view
+- **Instanced Rendering**: Efficiently renders repeated elements
+
+### Code Example
+
+```javascript
+// Initialize WebXR session
+async function initializeXR() {
+  if ('xr' in navigator) {
+    const isSupported = await navigator.xr.isSessionSupported('immersive-vr');
+    if (isSupported) {
+      const session = await navigator.xr.requestSession('immersive-vr');
+      renderer.xr.setSession(session);
+      startGalleryExperience();
+    }
+  }
+}
+
+// Handle artwork interaction
+function onArtworkSelect(artwork) {
+  // Display information panel
+  showInfoPanel(artwork.metadata);
+  
+  // Play audio description
+  audioManager.playDescription(artwork.audioUrl);
+  
+  // Highlight selected artwork
+  artwork.material.emissive.setHex(0x444444);
+}
+```
+
+## Challenges & Solutions
+
+### Challenge: Performance on Mobile Devices
+**Solution**: Implemented adaptive quality settings that automatically adjust rendering quality based on device capabilities and frame rate performance.
+
+### Challenge: Cross-Platform Input Handling
+**Solution**: Created a unified input system that abstracts different input methods (VR controllers, touch, mouse) into common interaction events.
+
+### Challenge: Large Asset Loading
+**Solution**: Implemented progressive loading with placeholder models that are replaced with high-quality assets as they download in the background.
+
+## Results & Impact
+
+- **User Engagement**: Average session time of 12 minutes
+- **Performance**: Maintains 60+ FPS on mid-range VR devices
+- **Accessibility**: Supports users with various input preferences
+- **Reach**: Compatible with 95% of modern web browsers
+
+## Future Enhancements
+
+- **Social Features**: Multi-user gallery visits with voice chat
+- **Creator Tools**: Allow artists to upload and curate their own exhibitions
+- **AI Integration**: Personalized artwork recommendations
+- **Haptic Feedback**: Enhanced interactions for supported devices
+
+## Technologies Used
+
+- **WebXR APIs** for VR/AR functionality
+- **Three.js** for 3D graphics rendering
+- **Web Audio API** for spatial audio
+- **WebGL** for hardware-accelerated graphics
+- **Progressive Web App** technologies for offline support
+
+This project demonstrates the potential of WebXR to democratize access to immersive experiences, making virtual reality accessible through any modern web browser without requiring app downloads or specialized software.

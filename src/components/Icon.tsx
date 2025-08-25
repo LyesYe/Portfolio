@@ -6,6 +6,12 @@ import {
   Briefcase, 
   User, 
   FolderOpen,
+  FileText,
+  Image,
+  Music,
+  Video,
+  Settings,
+  Trash2,
   LucideIcon
 } from 'lucide-react';
 import { useDoubleClick } from '@/hooks/useDoubleClick';
@@ -24,6 +30,12 @@ const iconMap: Record<string, LucideIcon> = {
   Briefcase,
   User,
   FolderOpen,
+  FileText,
+  Image,
+  Music,
+  Video,
+  Settings,
+  Trash2,
 };
 
 export function Icon({ id, title, icon, onDoubleClick, isMobile = false }: IconProps) {
@@ -57,7 +69,7 @@ export function Icon({ id, title, icon, onDoubleClick, isMobile = false }: IconP
       {/* Icon Background */}
       <motion.div
         className={cn(
-          "glass rounded-lg flex items-center justify-center mb-2",
+          "bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center mb-2 border border-white/20",
           "group-hover:bg-white/20 transition-colors duration-200",
           isMobile ? "w-12 h-12" : "w-16 h-16"
         )}
@@ -65,7 +77,7 @@ export function Icon({ id, title, icon, onDoubleClick, isMobile = false }: IconP
       >
         <IconComponent 
           className={cn(
-            "text-white",
+            "text-white drop-shadow-lg",
             isMobile ? "w-6 h-6" : "w-8 h-8"
           )} 
         />
@@ -73,7 +85,7 @@ export function Icon({ id, title, icon, onDoubleClick, isMobile = false }: IconP
       
       {/* Icon Label */}
       <span className={cn(
-        "text-white text-center font-medium leading-tight",
+        "text-white text-center font-medium leading-tight drop-shadow-lg",
         "group-hover:text-white/90 transition-colors duration-200",
         isMobile ? "text-xs max-w-[60px]" : "text-sm max-w-[80px]"
       )}>

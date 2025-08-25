@@ -13,20 +13,20 @@ export function ProjectViewer({ project }: ProjectViewerProps) {
   return (
     <div className="h-full overflow-auto">
       {/* Project Header */}
-      <div className="p-6 border-b border-white/10">
+      <div className="p-6 border-b border-white/20 bg-gradient-to-r from-slate-800/80 via-slate-700/60 to-slate-800/80 backdrop-blur-sm">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-2xl font-bold text-white mb-3">{project.title}</h1>
+          <h1 className="text-3xl font-bold text-white mb-4 tracking-tight">{project.title}</h1>
           
           {/* Tech Stack */}
           <div className="flex flex-wrap gap-2 mb-4">
             {project.stack.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm font-medium border border-blue-500/30"
+                className="px-3 py-1.5 bg-blue-500/30 text-blue-200 rounded-full text-sm font-medium border border-blue-400/40 shadow-sm"
               >
                 {tech}
               </span>
@@ -39,7 +39,7 @@ export function ProjectViewer({ project }: ProjectViewerProps) {
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-1 bg-white/10 text-white/70 rounded text-xs border border-white/20"
+                  className="px-2.5 py-1 bg-white/15 text-white/80 rounded-md text-xs border border-white/25 shadow-sm"
                 >
                   #{tag}
                 </span>

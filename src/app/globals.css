@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
+    --background: 210 40% 2%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 210 40% 4%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+    --popover: 210 40% 4%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --secondary: 217.2 32.6% 17.5%;
+    --primary: 200 98% 39%;
+    --primary-foreground: 210 40% 2%;
+    --secondary: 210 40% 8%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 210 40% 8%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 210 40% 8%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 94.1%;
+    --border: 210 40% 12%;
+    --input: 210 40% 8%;
+    --ring: 200 98% 39%;
     --radius: 0.75rem;
   }
 }
@@ -38,23 +38,23 @@
 }
 
 @layer components {
-  /* Glassmorphism utilities */
+  /* Enhanced glassmorphism utilities for dark theme */
   .glass {
-    @apply bg-white/10 backdrop-blur-md border border-white/20;
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
   }
   
   .glass-dark {
-    @apply bg-black/20 backdrop-blur-md border border-white/10;
+    @apply bg-black/40 backdrop-blur-lg border border-gray-600/20;
   }
   
   .glass-strong {
-    @apply bg-white/20 backdrop-blur-lg border border-white/30;
+    @apply bg-black/60 backdrop-blur-xl border border-gray-500/30;
   }
   
-  /* Custom scrollbar */
+  /* Custom scrollbar - darker theme */
   .custom-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
   }
   
   .custom-scrollbar::-webkit-scrollbar {
@@ -66,26 +66,27 @@
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(156, 163, 175, 0.5);
     border-radius: 4px;
   }
   
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(156, 163, 175, 0.7);
   }
   
-  /* Window animations */
+  /* Enhanced window shadows for dark theme */
   .window-shadow {
     box-shadow: 
-      0 25px 50px -12px rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(255, 255, 255, 0.1);
+      0 25px 50px -12px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
   
-  /* Desktop grid for icon alignment */
+  /* Desktop grid for icon alignment - darker */
   .desktop-grid {
     background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 100px 100px;
   }
   
@@ -103,9 +104,9 @@
     @apply min-h-[44px] min-w-[44px];
   }
   
-  /* Improved focus states for accessibility */
+  /* Improved focus states for dark theme */
   .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+    @apply focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900;
   }
 }
 

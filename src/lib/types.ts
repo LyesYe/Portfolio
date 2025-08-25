@@ -3,6 +3,7 @@ export type ProjectFrontmatter = {
   title: string;
   stack: string[];
   tags?: string[];
+  category: string; // Add category field
   cover?: string;
   gallery?: string[];
   links?: { label: string; href: string }[];

@@ -223,13 +223,9 @@ export default function HomePage() {
   };
 
   return (
-    <main className="relative w-screen h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-visible">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.3),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_48%,rgba(255,255,255,0.05)_49%,rgba(255,255,255,0.05)_51%,transparent_52%)] bg-[length:20px_20px]" />
-      </div>
-  
+    <main className="relative w-screen h-screen bg-black overflow-visible">
+      {/* Remove the old background pattern */}
+      
       {/* Desktop and Windows Container */}
       <div className="relative w-full h-full">
         <Desktop onIconDoubleClick={handleIconDoubleClick} />
@@ -269,10 +265,10 @@ export default function HomePage() {
       
       {/* Clock */}
       <Clock />
-
+  
       {/* Dock */}
       <Dock onAppLaunch={handleIconDoubleClick} />
-
+  
       {/* Loading Overlay */}
       <AnimatePresence>
         {isLoading && (

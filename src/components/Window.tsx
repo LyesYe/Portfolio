@@ -60,17 +60,18 @@ export function Window({
       <AnimatePresence>
         {!isMinimized && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 1, scale: 1 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0 }}
             className="fixed inset-0 z-50 mobile-safe-area"
             style={{ zIndex }}
             onClick={onFocus}
           >
-            <div className="flex flex-col h-full bg-slate-900/95 backdrop-blur-lg">
+            <div className="flex flex-col h-full bg-gray-900/95 backdrop-blur-xl border border-gray-700/50">
               {/* Mobile Header */}
-              <div className="flex items-center justify-between p-4 border-b border-white/10">
-                <h3 className="text-white font-medium truncate flex-1 mr-4">
+              <div className="flex items-center justify-between p-4 border-b border-gray-700/30 bg-gray-800/80">
+                <h3 className="text-gray-100 font-medium truncate flex-1 mr-4">
                   {title}
                 </h3>
                 <div className="flex items-center space-x-2">
@@ -92,8 +93,8 @@ export function Window({
               </div>
               
               {/* Mobile Content */}
-              <div className="flex-1 overflow-hidden">
-                <div className="h-full custom-scrollbar overflow-auto p-4">
+              <div className="flex-1 overflow-hidden bg-gray-900/50">
+                <div className="h-full custom-scrollbar overflow-auto p-4 text-gray-100">
                   {children}
                 </div>
               </div>
@@ -109,10 +110,10 @@ export function Window({
     <AnimatePresence>
       {!isMinimized && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          initial={{ opacity: 1, scale: 1, y: 0 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+          transition={{ duration: 0 }}
           style={{ zIndex: zIndex }}
           className="fixed top-0 left-0"
         >
@@ -148,12 +149,12 @@ export function Window({
             key={isMaximized ? 'maximized' : 'normal'}
             className={cn(
               "window-shadow rounded-lg overflow-hidden",
-              "bg-white/10 backdrop-blur-lg border border-white/20"
+              "bg-gray-900/90 backdrop-blur-xl border border-gray-700/50"
             )}
           >
             {/* Window Header */}
-            <div className="window-drag-handle flex items-center justify-between p-3 border-b border-white/10 bg-white/5">
-              <h3 className="text-white font-medium truncate flex-1 mr-4 text-responsive">
+            <div className="window-drag-handle flex items-center justify-between p-3 border-b border-gray-700/30 bg-gray-800/80">
+              <h3 className="text-gray-100 font-medium truncate flex-1 mr-4 text-responsive">
                 {title}
               </h3>
               <div className="flex items-center space-x-1">
@@ -195,8 +196,8 @@ export function Window({
             </div>
             
             {/* Window Content */}
-            <div className="h-full overflow-hidden" style={{ height: 'calc(100% - 49px)' }}>
-              <div className="h-full custom-scrollbar overflow-auto p-4">
+            <div className="h-full overflow-hidden bg-gray-900/50" style={{ height: 'calc(100% - 49px)' }}>
+              <div className="h-full custom-scrollbar overflow-auto p-4 text-gray-100">
                 {children}
               </div>
             </div>

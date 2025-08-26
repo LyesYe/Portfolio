@@ -82,7 +82,7 @@ export function Desktop({ onIconDoubleClick }: DesktopProps) {
       {/* Desktop Wallpaper */}
       <div className="absolute inset-0">
         {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-green-900/30 to-black" />
         
         {/* Mountain silhouette */}
         <div className="absolute bottom-0 left-0 right-0 h-1/3">
@@ -170,13 +170,14 @@ export function Desktop({ onIconDoubleClick }: DesktopProps) {
         </div>
       </div>
 
-      {/* Desktop Icons */}
+      {/* Desktop Icons - REMOVED */}
+      {/* Commented out the desktop icons section
       {!isMobile && (
-        <div className="absolute inset-0 p-4">
+        <div className="absolute inset-0 pointer-events-none">
           {desktopIcons.map((iconData) => (
             <motion.div
               key={iconData.id}
-              className="absolute"
+              className="absolute pointer-events-auto"
               style={{ left: iconData.x, top: iconData.y }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -192,88 +193,7 @@ export function Desktop({ onIconDoubleClick }: DesktopProps) {
           ))}
         </div>
       )}
-
-      {/* System Tray (Top Right) - Enhanced */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1 }}
-        className="absolute top-4 right-4 flex items-center space-x-4 bg-black/30 backdrop-blur-md rounded-xl px-4 py-3 border border-white/20 shadow-2xl hover:bg-black/40 transition-all duration-300"
-      >
-        {/* WiFi Icon with Hover */}
-        <motion.div
-          className="relative group cursor-pointer"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Wifi className="w-5 h-5 text-green-400 drop-shadow-lg" />
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileHover={{ opacity: 1, y: 0 }}
-            className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none"
-          >
-            Connected
-          </motion.div>
-        </motion.div>
-
-        {/* Battery Icon with Hover */}
-        <motion.div
-          className="relative group cursor-pointer"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Battery className="w-5 h-5 text-green-400 drop-shadow-lg" />
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileHover={{ opacity: 1, y: 0 }}
-            className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none"
-          >
-            85% Charged
-          </motion.div>
-        </motion.div>
-
-        {/* Separator */}
-        <div className="w-px h-6 bg-white/20"></div>
-
-        {/* Clock with Enhanced Styling and Hover */}
-        <motion.div
-          className="relative group cursor-pointer"
-          whileHover={{ scale: 1.05 }}
-        >
-          <div className="text-white/90 text-sm font-mono bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-semibold tracking-wider drop-shadow-lg">
-            {isClient ? currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'}
-          </div>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileHover={{ opacity: 1, y: 0 }}
-            className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none"
-          >
-            {isClient ? currentTime.toLocaleDateString([], { 
-              weekday: 'long', 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            }) : 'Loading...'}
-          </motion.div>
-        </motion.div>
-
-        {/* Settings Icon */}
-        <motion.div
-          className="relative group cursor-pointer"
-          whileHover={{ scale: 1.1, rotate: 90 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ duration: 0.2 }}
-        >
-          <Settings className="w-4 h-4 text-white/70 hover:text-white transition-colors" />
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileHover={{ opacity: 1, y: 0 }}
-            className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none"
-          >
-            Settings
-          </motion.div>
-        </motion.div>
-      </motion.div>
+      */}
 
       {/* Main content area with name and title */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">

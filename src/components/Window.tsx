@@ -54,6 +54,9 @@ export function Window({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Calculate dock height - mobile: 64px (h-16), desktop: 56px (h-14)
+  const dockHeight = isMobile ? 64 : 56;
+
   // Mobile: full screen windows
   if (isMobile) {
     return (
@@ -65,7 +68,10 @@ export function Window({
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0 }}
             className="fixed inset-0 z-50 mobile-safe-area"
-            style={{ zIndex }}
+            style={{ 
+              zIndex,
+              bottom: dockHeight // Leave space for dock
+            }}
             onClick={onFocus}
           >
             <div className="flex flex-col h-full bg-gray-900/95 backdrop-blur-xl border border-gray-700/50">
@@ -114,14 +120,25 @@ export function Window({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
           transition={{ duration: 0 }}
-          style={{ zIndex: zIndex }}
+          style={{ 
+            zIndex: Math.min(zIndex, 99999),
+            willChange: 'transform' // Optimize for animations
+          }}
           className="fixed top-0 left-0"
         >
           <Rnd
             ref={windowRef}
-            size={isMaximized ? { width: window.innerWidth, height: window.innerHeight } : size}
+            size={isMaximized ? { 
+              width: window.innerWidth, 
+              height: window.innerHeight - dockHeight 
+            } : size}
             position={isMaximized ? { x: 0, y: 0 } : position}
-            bounds="window"
+            bounds={isMaximized ? {
+              left: 0,
+              top: 0,
+              right: window.innerWidth,
+              bottom: window.innerHeight - dockHeight
+            } : "window"}
             onDragStop={(e, d) => {
               if (!isMaximized && onPositionChange) {
                 onPositionChange({ x: d.x, y: d.y });
@@ -149,8 +166,13 @@ export function Window({
             key={isMaximized ? 'maximized' : 'normal'}
             className={cn(
               "window-shadow rounded-lg overflow-hidden",
-              "bg-gray-900/90 backdrop-blur-xl border border-gray-700/50"
+              "bg-gray-900/90 border border-gray-700/50",
+              "transform-gpu" // Use GPU acceleration for better performance
             )}
+            style={{
+              backdropFilter: 'blur(12px)', // Move backdrop blur to inline style for better performance
+              WebkitBackdropFilter: 'blur(12px)'
+            }}
           >
             {/* Window Header */}
             <div className="window-drag-handle flex items-center justify-between p-3 border-b border-gray-700/30 bg-gray-800/80">

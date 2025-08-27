@@ -60,7 +60,11 @@ export default function HomePage() {
   useEffect(() => {
     const loadProjects = async () => {
       try {
-        const projectData = await getProjects();
+        const response = await fetch('/api/projects');
+        if (!response.ok) {
+          throw new Error('Failed to fetch projects');
+        }
+        const projectData = await response.json();
         setProjects(projectData);
       } catch (error) {
         console.error('Failed to load projects:', error);
@@ -69,16 +73,18 @@ export default function HomePage() {
         setIsLoading(false);
       }
     };
-
+  
     loadProjects();
   }, []);
 
   const handleIconDoubleClick = (iconId: string) => {
     const centerX = Math.max(50, (window.innerWidth - 900) / 2);
-    const centerY = Math.max(50, (window.innerHeight - 500) / 2); // Reduced from 700
+    const centerY = Math.max(50, (window.innerHeight - 500) / 2);
     const windowCount = windows.filter(w => w.open).length;
-    const offsetX = windowCount * 30;
-    const offsetY = windowCount * 30;
+    const offsetX = windowCount * 50; // Increased from 30 to 50 for bigger horizontal spacing
+    // Add vertical variation - sometimes up, sometimes down
+    const verticalVariations = [-60, -30, 0, 30, 60]; // Different vertical offsets
+    const offsetY = verticalVariations[windowCount % verticalVariations.length];
   
     switch (iconId) {
       case 'education':
@@ -90,9 +96,9 @@ export default function HomePage() {
           minimized: false,
           maximized: false,
           x: centerX + offsetX,
-          y: centerY + offsetY,
-          width: 900, // Keeping width at 900
-          height: 500, // Reduced from 700
+          y: centerY + offsetY, // Add vertical variation
+          width: 900,
+          height: 500,
         });
         break;
       case 'experience':
@@ -104,9 +110,9 @@ export default function HomePage() {
           minimized: false,
           maximized: false,
           x: centerX + offsetX,
-          y: centerY + offsetY,
-          width: 900, // Keeping width at 900
-          height: 500, // Reduced from 700
+          y: centerY + offsetY, // Add vertical variation
+          width: 900,
+          height: 500,
         });
         break;
       case 'info':
@@ -118,9 +124,9 @@ export default function HomePage() {
           minimized: false,
           maximized: false,
           x: centerX + offsetX,
-          y: centerY + offsetY,
-          width: 900, // Keeping width at 900
-          height: 500, // Reduced from 700
+          y: centerY + offsetY, // Add vertical variation
+          width: 900,
+          height: 500,
         });
         break;
       case 'projects':
@@ -132,9 +138,9 @@ export default function HomePage() {
           minimized: false,
           maximized: false,
           x: centerX + offsetX,
-          y: centerY + offsetY,
-          width: 800, // Keeping width at 800
-          height: 450, // Reduced from 650
+          y: centerY + offsetY, // Add vertical variation
+          width: 800,
+          height: 450,
         });
         break;
     }
@@ -142,11 +148,13 @@ export default function HomePage() {
 
   const handleProjectOpen = (project: Project) => {
     const centerX = window.innerWidth / 2 - 400;
-    const centerY = window.innerHeight / 2 - 225; // Adjusted for new height (450/2)
-    
+    const centerY = window.innerHeight / 2 - 225;
+  
     const windowCount = windows.filter(w => w.open).length;
-    const offsetX = windowCount * 30;
-    const offsetY = windowCount * 30;
+    const offsetX = windowCount * 50; // Increased from 30 to 50 for bigger horizontal spacing
+    // Add vertical variation - sometimes up, sometimes down
+    const verticalVariations = [-60, -30, 0, 30, 60]; // Different vertical offsets
+    const offsetY = verticalVariations[windowCount % verticalVariations.length];
   
     const windowId = `project-${project.slug}`;
     
@@ -158,9 +166,9 @@ export default function HomePage() {
       minimized: false,
       maximized: false,
       x: centerX + offsetX,
-      y: centerY + offsetY,
-      width: 800, // Keeping width at 800
-      height: 450, // Reduced from 650
+      y: centerY + offsetY, // Add vertical variation
+      width: 800,
+      height: 450,
       data: project,
     });
     

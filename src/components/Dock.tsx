@@ -180,7 +180,7 @@ export function Dock({ onAppLaunch }: DockProps) {
           <div className="flex-1 flex items-center justify-center">
             <div className={cn(
               "flex items-center",
-              isMobile ? "space-x-4" : "space-x-6"
+              isMobile ? "space-x-8" : "space-x-10" // Increased from space-x-4 and space-x-6
             )}>
               {/* Application Launchers */}
               {dockApps.map((app, index) => {
@@ -313,10 +313,10 @@ export function Dock({ onAppLaunch }: DockProps) {
                                   y: [0, y * 0.5, y, y * 1.2]
                                 }}
                                 transition={{ 
-                                  duration: 2.5, 
-                                  delay: i * 0.1,
+                                  duration: 0.8, // Reduced from 2.5 to 0.8
+                                  delay: i * 0.05, // Reduced from 0.1 to 0.05
                                   repeat: Infinity,
-                                  repeatDelay: 0.5,
+                                  repeatDelay: 0.2, // Reduced from 0.5 to 0.2
                                   ease: "easeOut"
                                 }}
                                 style={{
@@ -383,6 +383,7 @@ export function Dock({ onAppLaunch }: DockProps) {
                           initial={{ opacity: 0, y: 10, scale: 0.8 }}
                           animate={{ opacity: 1, y: -15, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.8 }}
+                          transition={{ duration: 0.15 }} // Reduced from default to 0.15
                           className={cn(
                             "absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2",
                             "px-3 py-1.5 rounded-lg",
@@ -466,6 +467,7 @@ export function Dock({ onAppLaunch }: DockProps) {
               className="relative group cursor-pointer"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.1 }} // Added fast transition
               onMouseEnter={() => setHoveredApp('wifi')}
               onMouseLeave={() => setHoveredApp(null)}
             >
@@ -479,6 +481,7 @@ export function Dock({ onAppLaunch }: DockProps) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: -8 }}
                     exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.1 }} // Reduced from default to 0.1
                     className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-50"
                   >
                     Connected
@@ -492,6 +495,7 @@ export function Dock({ onAppLaunch }: DockProps) {
               className="relative group cursor-pointer"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.1 }} // Added fast transition
               onMouseEnter={() => setHoveredApp('battery')}
               onMouseLeave={() => setHoveredApp(null)}
             >
@@ -505,6 +509,7 @@ export function Dock({ onAppLaunch }: DockProps) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: -8 }}
                     exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.1 }} // Reduced from default to 0.1
                     className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-50"
                   >
                     85% Charged
@@ -523,6 +528,7 @@ export function Dock({ onAppLaunch }: DockProps) {
             <motion.div
               className="relative group cursor-pointer"
               whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.1 }} // Added fast transition
               onMouseEnter={() => setHoveredApp('clock')}
               onMouseLeave={() => setHoveredApp(null)}
             >
@@ -538,6 +544,7 @@ export function Dock({ onAppLaunch }: DockProps) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: -8 }}
                     exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.1 }} // Reduced from default to 0.1
                     className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-50"
                   >
                     {isClient ? currentTime.toLocaleDateString([], { 
@@ -555,7 +562,7 @@ export function Dock({ onAppLaunch }: DockProps) {
               className="relative group cursor-pointer"
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.1 }} // Reduced from 0.2 to 0.1
               onMouseEnter={() => setHoveredApp('settings')}
               onMouseLeave={() => setHoveredApp(null)}
             >
@@ -569,6 +576,7 @@ export function Dock({ onAppLaunch }: DockProps) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: -8 }}
                     exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.1 }} // Reduced from default to 0.1
                     className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-50"
                   >
                     Settings

@@ -30,7 +30,7 @@ export function ProjectsFolder({ projects, onProjectOpen, isLoading }: ProjectsF
   const filteredProjectsByCategory = Object.entries(projectsByCategory).reduce((acc, [category, categoryProjects]) => {
     const filtered = categoryProjects.filter(project => {
       const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           project.stack.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
+                           (project.stack && project.stack.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase())));
       return matchesSearch;
     });
     
@@ -152,7 +152,7 @@ export function ProjectsFolder({ projects, onProjectOpen, isLoading }: ProjectsF
                     
                     {/* Tech Stack */}
                     <div className="flex flex-wrap gap-1 mb-3">
-                      {project.stack.slice(0, 3).map(tech => (
+                      {(project.stack || []).slice(0, 3).map(tech => (
                         <span
                           key={tech}
                           className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs border border-blue-500/30"
@@ -160,9 +160,9 @@ export function ProjectsFolder({ projects, onProjectOpen, isLoading }: ProjectsF
                           {tech}
                         </span>
                       ))}
-                      {project.stack.length > 3 && (
+                      {(project.stack?.length || 0) > 3 && (
                         <span className="px-2 py-1 bg-white/10 text-white/50 rounded text-xs">
-                          +{project.stack.length - 3}
+                          +{(project.stack?.length || 0) - 3}
                         </span>
                       )}
                     </div>

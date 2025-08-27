@@ -3,11 +3,11 @@ slug: "share-xr"
 title: "Share XR — Collaborative Mixed Reality"
 stack: ["Unity", "Photon", "OpenXR", "C#", "WebRTC"]
 tags: ["MR", "Real-time", "Collaboration"]
-cover: "/images/projects/share-xr/cover.jpg"
+cover: "/images/projects/share-xr/demo-1.png"
 gallery: [
-  "/images/projects/share-xr/demo-1.jpg",
-  "/images/projects/share-xr/demo-2.jpg",
-  "/images/projects/share-xr/demo-3.jpg"
+  "/images/projects/share-xr/demo-1.png",
+  "/images/projects/share-xr/demo-1.png",
+  "/images/projects/share-xr/demo-1.png"
 ]
 links: [
   { "label": "GitHub", "href": "https://github.com/username/share-xr" },
@@ -19,9 +19,17 @@ links: [
 
 A revolutionary mixed reality platform that enables multiple users to collaborate in shared virtual spaces with real-time synchronization of anchors, object manipulation, and spatial interactions.
 
+![Share XR Overview](/images/projects/share-xr/demo-1.png)
+*Multiple users collaborating in a shared mixed reality environment*
+
 ## Project Overview
 
 Share XR breaks down the barriers of remote collaboration by creating persistent, shared mixed reality environments where teams can work together as if they were in the same physical space. The platform synchronizes spatial anchors, 3D objects, and user interactions across multiple devices in real-time.
+
+The system leverages cutting-edge spatial computing technologies to create seamless collaborative experiences that feel natural and intuitive. Users can manipulate virtual objects, draw in 3D space, and share digital content as if they were physically present in the same room.
+
+![Real-time Collaboration](/images/projects/share-xr/demo-1.png)
+*Real-time object manipulation and spatial anchor synchronization*
 
 ## Key Features
 
@@ -31,11 +39,18 @@ Share XR breaks down the barriers of remote collaboration by creating persistent
 - **Gesture Recognition**: Hand tracking and gesture synchronization
 - **Voice Communication**: Spatial audio with 3D positioning
 
+The synchronization system ensures that all users see the same virtual content in the same physical locations, creating a truly shared experience. Advanced prediction algorithms minimize latency and provide smooth interactions even over network connections.
+
+![Cross-Platform Support](/images/projects/share-xr/demo-1.png)
+*Cross-platform compatibility across HoloLens, Magic Leap, and mobile devices*
+
 ### 🔗 Cross-Platform Compatibility
 - **HoloLens 2**: Native mixed reality experience
 - **Magic Leap**: Optimized for Magic Leap devices
 - **Mobile AR**: iOS and Android support via ARCore/ARKit
 - **VR Headsets**: Oculus, Vive, and other OpenXR compatible devices
+
+Our unified platform approach ensures that users on different devices can collaborate seamlessly, regardless of their hardware choice. The system automatically adapts the experience to each device's capabilities while maintaining feature parity.
 
 ### 🎯 Collaborative Tools
 - **3D Whiteboarding**: Draw and annotate in 3D space
@@ -44,6 +59,8 @@ Share XR breaks down the barriers of remote collaboration by creating persistent
 - **Recording & Playback**: Capture and replay collaboration sessions
 
 ## Technical Architecture
+
+The Share XR platform is built on a robust, scalable architecture designed to handle real-time collaboration across multiple devices and platforms. Our custom networking layer ensures low-latency communication while maintaining data consistency across all connected clients.
 
 ### Networking Layer
 ```csharp
@@ -72,6 +89,8 @@ public class ShareXRNetworkManager : MonoBehaviourPunPV
 - **Physics Simulation**: Shared physics state across all clients
 - **Lighting Estimation**: Dynamic lighting adaptation
 
+Our spatial computing engine creates detailed maps of physical environments, allowing virtual content to interact realistically with real-world surfaces and objects. This creates convincing mixed reality experiences where digital and physical elements coexist naturally.
+
 ### Performance Optimizations
 - **Level of Detail (LOD)**: Dynamic quality adjustment based on distance
 - **Culling Systems**: Frustum and occlusion culling for performance
@@ -80,11 +99,15 @@ public class ShareXRNetworkManager : MonoBehaviourPunPV
 
 ## Use Cases
 
+Share XR has been successfully deployed across various industries, transforming how teams collaborate and interact with digital content in mixed reality environments.
+
 ### 🏗️ Architecture & Design
 - Collaborative 3D model review
 - Virtual site walkthroughs
 - Real-time design modifications
 - Client presentations in mixed reality
+
+Architects and designers use Share XR to review building plans in full scale, allowing clients to walk through virtual buildings before construction begins. Teams can make real-time modifications and see changes instantly across all connected devices.
 
 ### 🎓 Education & Training
 - Virtual classrooms with 3D content
@@ -92,11 +115,15 @@ public class ShareXRNetworkManager : MonoBehaviourPunPV
 - Historical recreations
 - Scientific visualization
 
+Educational institutions leverage Share XR to create immersive learning experiences where students can explore historical sites, manipulate molecular structures, or practice complex procedures in safe virtual environments.
+
 ### 🏭 Industrial Applications
 - Remote equipment maintenance
 - Assembly line optimization
 - Safety training scenarios
 - Quality control inspections
+
+Manufacturing companies use Share XR for remote assistance, allowing experts to guide technicians through complex procedures using shared mixed reality overlays and annotations.
 
 ### 💼 Business Meetings
 - 3D data visualization
@@ -105,6 +132,8 @@ public class ShareXRNetworkManager : MonoBehaviourPunPV
 - Global team collaboration
 
 ## Implementation Highlights
+
+The core of Share XR lies in its sophisticated anchor persistence and object synchronization systems, which ensure that virtual content remains stable and consistent across all users and sessions.
 
 ### Anchor Persistence System
 ```csharp
@@ -136,6 +165,8 @@ public class PersistentAnchorSystem : MonoBehaviour
 
 ## Results & Impact
 
+Since its launch, Share XR has demonstrated significant impact across various metrics, proving its value in real-world collaborative scenarios.
+
 ### Performance Metrics
 - **Latency**: < 50ms for object manipulation sync
 - **Accuracy**: Sub-centimeter spatial anchor precision
@@ -150,10 +181,14 @@ public class PersistentAnchorSystem : MonoBehaviour
 
 ## Technical Challenges Solved
 
+Developing Share XR required overcoming several significant technical challenges in spatial computing and real-time networking.
+
 ### Spatial Anchor Drift
 - Implemented continuous anchor refinement
 - Cross-reference multiple tracking systems
 - Machine learning-based drift correction
+
+Spatial anchor drift was one of our biggest challenges, as even small inaccuracies compound over time and break the shared experience. Our solution combines multiple tracking systems and uses machine learning to predict and correct drift before it becomes noticeable.
 
 ### Network Optimization
 - Custom protocol for spatial data

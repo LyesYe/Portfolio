@@ -23,7 +23,7 @@ export function ProjectViewer({ project }: ProjectViewerProps) {
           
           {/* Tech Stack */}
           <div className="flex flex-wrap gap-2 mb-4">
-            {project.stack.map((tech) => (
+            {(project.stack || []).map((tech) => (
               <span
                 key={tech}
                 className="px-3 py-1.5 bg-blue-500/30 text-blue-200 rounded-full text-sm font-medium border border-blue-400/40 shadow-sm"

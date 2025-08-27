@@ -133,12 +133,7 @@ export function Window({
               height: window.innerHeight - dockHeight 
             } : size}
             position={isMaximized ? { x: 0, y: 0 } : position}
-            bounds={isMaximized ? {
-              left: 0,
-              top: 0,
-              right: window.innerWidth,
-              bottom: window.innerHeight - dockHeight
-            } : "window"}
+            bounds={isMaximized ? "window" : "window"}
             onDragStop={(e, d) => {
               if (!isMaximized && onPositionChange) {
                 onPositionChange({ x: d.x, y: d.y });

@@ -74,18 +74,14 @@ export default function HomePage() {
   }, []);
 
   const handleIconDoubleClick = (iconId: string) => {
-    console.log('handleIconDoubleClick called with:', iconId);
-    const centerX = Math.max(50, (window.innerWidth - 800) / 2);
-    const centerY = Math.max(50, (window.innerHeight - 600) / 2);
+    const centerX = Math.max(50, (window.innerWidth - 900) / 2);
+    const centerY = Math.max(50, (window.innerHeight - 500) / 2); // Reduced from 700
     const windowCount = windows.filter(w => w.open).length;
     const offsetX = windowCount * 30;
     const offsetY = windowCount * 30;
-
-    console.log('Window position calculated:', { centerX, centerY, offsetX, offsetY });
-
+  
     switch (iconId) {
       case 'education':
-        console.log('Opening education window');
         openWindow({
           id: 'education',
           title: 'Education',
@@ -95,8 +91,8 @@ export default function HomePage() {
           maximized: false,
           x: centerX + offsetX,
           y: centerY + offsetY,
-          width: 800,
-          height: 600,
+          width: 900, // Keeping width at 900
+          height: 500, // Reduced from 700
         });
         break;
       case 'experience':
@@ -109,8 +105,8 @@ export default function HomePage() {
           maximized: false,
           x: centerX + offsetX,
           y: centerY + offsetY,
-          width: 800,
-          height: 600,
+          width: 900, // Keeping width at 900
+          height: 500, // Reduced from 700
         });
         break;
       case 'info':
@@ -123,8 +119,8 @@ export default function HomePage() {
           maximized: false,
           x: centerX + offsetX,
           y: centerY + offsetY,
-          width: 800,
-          height: 600,
+          width: 900, // Keeping width at 900
+          height: 500, // Reduced from 700
         });
         break;
       case 'projects':
@@ -137,16 +133,16 @@ export default function HomePage() {
           maximized: false,
           x: centerX + offsetX,
           y: centerY + offsetY,
-          width: 700,
-          height: 550,
+          width: 800, // Keeping width at 800
+          height: 450, // Reduced from 650
         });
         break;
     }
   };
 
   const handleProjectOpen = (project: Project) => {
-    const centerX = window.innerWidth / 2 - 350;
-    const centerY = window.innerHeight / 2 - 275;
+    const centerX = window.innerWidth / 2 - 400;
+    const centerY = window.innerHeight / 2 - 225; // Adjusted for new height (450/2)
     
     const windowCount = windows.filter(w => w.open).length;
     const offsetX = windowCount * 30;
@@ -163,8 +159,8 @@ export default function HomePage() {
       maximized: false,
       x: centerX + offsetX,
       y: centerY + offsetY,
-      width: 700,
-      height: 550,
+      width: 800, // Keeping width at 800
+      height: 450, // Reduced from 650
       data: project,
     });
     

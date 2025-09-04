@@ -1,50 +1,85 @@
 ---
 slug: 'handar'
-title: 'HandAR — Hand Tracking Augmented Reality'
-stack: ['Unity', 'ARCore', 'OpenCV', 'C#']
-tags: ['AR', 'Hand Tracking', 'Computer Vision']
+title: 'HandAR — Assistance à distance en réalité augmentée'
+stack: ['Unity 3D', 'ARCore', 'MediaPipe', 'WebRTC']
+tags: ['AR', 'Réalité augmentée', 'Assistance à distance', 'Hackathon']
 category: 'XR Projects'
 cover: '/images/projects/handar/cover.jpg'
 gallery:
-  - '/images/projects/handar/demo-1.jpg'
-  - '/images/projects/handar/demo-2.jpg'
-  - '/images/projects/handar/video-demo.mp4'
+  - '/images/projects/handar/screenshot-1.jpg'
+  - '/images/projects/handar/screenshot-2.jpg'
+  - '/images/projects/handar/screenshot-3.jpg'
+  - '/images/projects/handar/demo.mp4'
 links:
-  - label: 'GitHub'
-    href: '#'
-  - label: 'Demo Video'
-    href: '#'
+  - label: 'Présentation'
+    href: 'https://www.canva.com/design/DAGYqpDN_d0/T1aLa05oVmpebv5Yqi7myA/view?utm_content=DAGYqpDN_d0&utm_campaign=designshare&utm_medium=link&utm_source=editor'
 ---
 
-## Overview
+## Résumé
 
-[Brief description of HandAR project - replace with your content]
+**HandAR** est une application de **réalité augmentée (AR)** visant à améliorer l’**assistance à distance** en rendant les interactions plus précises et intuitives.  
+Développée lors du **HackTheSixth Hackathon 2024 à Toronto**, l’application permet une visualisation claire des gestes et objets, ainsi que l’ajout d’annotations en temps réel pour guider efficacement l’utilisateur.
 
-## Key Features
+---
 
-- Feature 1
-- Feature 2
-- Feature 3
+## Contexte et Objectifs
 
-## Technical Implementation
+Les systèmes traditionnels d’assistance à distance présentent plusieurs limites :  
 
-[Technical details about implementation]
+- Visualisation insuffisante des mains et des objets.  
+- Absence de repères et d’annotations en temps réel.  
+- Difficulté pour les personnes sourdes ou malentendantes d’obtenir un soutien fiable et rapide.  
 
-## Demo
+L’objectif de HandAR était de **réinventer l’assistance à distance** en utilisant la réalité augmentée pour rendre la communication plus claire et intuitive.
 
-![Demo Image](/images/projects/handar/demo-1.jpg)
+---
 
-[Description of the demo or screenshot]
+## Fonctionnalités principales
 
-## Video Demonstration
+- **Réalité augmentée** : superposition d’éléments virtuels sur le monde réel pour une visualisation précise des objets et actions.  
 
-<video controls width="100%">
-  <source src="/images/projects/handar/video-demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+![Screenshot HandAR](/images/projects/handar/screenshot-1.jpg)
 
-## Results & Impact
+- **Appels vidéo intégrés** : communication visuelle en temps réel entre l’utilisateur et l’assistance.  
+- **Suivi des mains en temps réel** : détection et visualisation précise des gestes de l’utilisateur grâce à MediaPipe.  
 
-[Results and impact of the project]
+![Screenshot HandAR](/images/projects/handar/screenshot-3.jpg)
 
-![Results](/images/projects/handar/demo-2.jpg)
+Video de la feature -> https://drive.google.com/file/d/1LWapOC03IS3d-0poyq_-svzfWeMbjEao/view?usp=sharing
+
+- **Annotations en direct** : ajout de flèches, points d’intérêt et repères directement sur l’écran pour guider l’utilisateur.  
+
+![Screenshot HandAR](/images/projects/handar/screenshot-2.jpg)
+
+Video de la feature -> https://drive.google.com/file/d/1cyBDKNZY_oACwlZZazF0B8AWKcapji0Q/view?usp=sharing
+
+
+---
+
+## Implémentation
+
+- **Moteur** : Unity 3D  
+- **AR** : ARCore  
+- **Détection de gestes** : MediaPipe  
+- **Communication en temps réel** : WebRTC  
+
+Les principaux défis techniques comprenaient :  
+- Synchronisation des flux vidéo et AR en temps réel.  
+- Détection et rendu précis des mains dans différents environnements.  
+- Intégration fluide des annotations interactives sur la vidéo et l’AR.
+
+---
+
+
+## Perspectives
+
+- Étendre le support aux **tablettes et casques AR** pour plus d’immersion.  
+- Ajouter des **scénarios spécifiques** pour les formations techniques ou médicales.  
+- Améliorer la **précision et réactivité du suivi des mains** dans des environnements complexes.  
+- Intégrer un **système de collaboration multi-utilisateurs** pour les équipes à distance.
+
+---
+
+## Remerciements
+
+Ce projet a été développé lors du **HackTheSixth Hackathon 2024 à Toronto, Canada**, en collaboration avec une équipe multidisciplinaire.

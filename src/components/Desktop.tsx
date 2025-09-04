@@ -29,7 +29,7 @@ interface DesktopProps {
 }
 
 const desktopIcons = [
-  { id: 'projects', title: 'Projects', icon: 'FolderOpen', x: 50, y: 50 },
+  { id: 'browser', title: 'Browser', icon: 'Monitor', x: 50, y: 50 },
   { id: 'documents', title: 'Documents', icon: 'FileText', x: 50, y: 150 },
   { id: 'pictures', title: 'Pictures', icon: 'Image', x: 50, y: 250 },
   { id: 'music', title: 'Music', icon: 'Music', x: 50, y: 350 },
@@ -305,97 +305,13 @@ export function Desktop({ onIconDoubleClick }: DesktopProps) {
           </motion.p>
           
           {/* Interactive taglines */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: showIntro ? 1 : 0.6, y: 0 }}
-            transition={{ duration: 1, delay: 2.5 }}
-            className="flex flex-wrap justify-center gap-4 text-sm text-cyan-300/80"
-          >
-            {['WebXR', 'Unity', 'Three.js', 'Computer Vision', 'Real-time Graphics'].map((tech, index) => (
-              <motion.span
-                key={tech}
-                className="px-3 py-1 bg-white/10 rounded-full border border-cyan-400/30 backdrop-blur-sm"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 3 + index * 0.1 }}
-                whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.15)' }}
-              >
-                {tech}
-              </motion.span>
-            ))}
-          </motion.div>
+
         </motion.div>
         
-        {/* Call to action */}
-        {showIntro && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 4 }}
-            className="mt-8 text-center relative z-10"
-          >
-            <motion.div
-              className="px-6 py-4 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-lg border border-cyan-400/30 backdrop-blur-sm"
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 4.2 }}
-            >
-              <motion.div
-                className="flex items-center justify-center mb-2"
-                animate={{ y: [0, -2, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <ChevronDown className="w-5 h-5 text-cyan-400 mr-2 rotate-180" />
-                <span className="text-white font-medium text-lg">Getting Started</span>
-                <ChevronDown className="w-5 h-5 text-cyan-400 ml-2 rotate-180" />
-              </motion.div>
-              <p className="text-gray-300 text-sm mb-3">
-                Click on the dock icons below to explore:
-              </p>
-              <div className="flex flex-wrap justify-center gap-2 text-xs text-cyan-300/80 mb-4">
-                <span className="px-2 py-1 bg-blue-500/20 rounded border border-blue-400/30 flex items-center gap-1">
-                  <GraduationCap className="w-3 h-3" /> Education
-                </span>
-                <span className="px-2 py-1 bg-green-500/20 rounded border border-green-400/30 flex items-center gap-1">
-                  <Briefcase className="w-3 h-3" /> Experience
-                </span>
-                <span className="px-2 py-1 bg-orange-500/20 rounded border border-orange-400/30 flex items-center gap-1">
-                  <User className="w-3 h-3" /> About Me
-                </span>
-                <span className="px-2 py-1 bg-cyan-500/20 rounded border border-cyan-400/30 flex items-center gap-1">
-                  <FolderOpen className="w-3 h-3" /> Projects
-                </span>
-              </div>
-              {/* Arrow pointing to dock */}
-              <motion.div
-                className="flex justify-center"
-                animate={{ y: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                <ChevronDown className="w-6 h-6 text-cyan-400" />
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        )}
+
+
         
-        {/* Scroll indicator */}
-        {showIntro && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 5 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          >
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="text-white/60 text-xs text-center"
-            >
-              <ChevronDown className="w-4 h-4 mx-auto mb-1" />
-              <span>Scroll to explore</span>
-            </motion.div>
-          </motion.div>
-        )}
+
       </div>
 
       {/* Desktop Grid (subtle) */}

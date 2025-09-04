@@ -12,6 +12,7 @@ import {
   Video,
   Settings,
   Trash2,
+  Monitor,
   LucideIcon
 } from 'lucide-react';
 import { useDoubleClick } from '@/hooks/useDoubleClick';
@@ -36,6 +37,7 @@ const iconMap: Record<string, LucideIcon> = {
   Video,
   Settings,
   Trash2,
+  Monitor,
 };
 
 export function Icon({ id, title, icon, onDoubleClick, isMobile = false }: IconProps) {

@@ -1,50 +1,80 @@
 ---
-slug: 'galileoar'
-title: 'GalileoAR — Astronomical AR Experience'
-stack: ['Unity', 'ARKit', 'ARCore', 'C#']
-tags: ['AR', 'Education', 'Astronomy']
+slug: 'galileo-ar'
+title: 'GalileoAR — Exploration interactive en réalité augmentée'
+stack: ['Unity 3D', 'ARCore', 'Mapbox', 'Flutter', 'Grafana']
+tags: ['AR', 'Réalité augmentée', 'GPS', 'Satellites', 'Hackathon']
 category: 'XR Projects'
-cover: '/images/projects/galileoar/cover.jpg'
+cover: '/images/projects/galileoar/screenshot-2.jpg'
 gallery:
-  - '/images/projects/galileoar/interface-1.jpg'
-  - '/images/projects/galileoar/interface-2.jpg'
-  - '/images/projects/galileoar/demo-video.mp4'
+  - '/images/projects/galileoar/screenshot-1.jpg'
+  - '/images/projects/galileoar/screenshot-2.jpg'
+  - '/images/projects/galileoar/demo.mp4'
 links:
-  - label: 'GitHub'
-    href: '#'
-  - label: 'App Store'
-    href: '#'
+  - label: 'Vidéo Démo'
+    href: 'https://drive.google.com/file/d/1IhxX77rz3bU8t_ah4LXpRy5p8tRTdKLi/view?usp=sharing'
 ---
 
-## Overview
+## Résumé
 
-[Brief description of GalileoAR project - replace with your content]
+**GalileoAR** est une application de **réalité augmentée** permettant aux utilisateurs d’explorer une carte interactive en mode **"fog of war"**, débloquant progressivement l’environnement au fur et à mesure de leurs déplacements.  
+L’application utilise les **données en temps réel des satellites Galileo** pour afficher la position de l’utilisateur et les satellites autour de lui, tout en fournissant un **tableau de bord pour l’analyse des données**.
 
-## Features
+Ce projet a été réalisé lors du **HackUPC 2024 à Barcelone**, dans le cadre du challenge de l’**ESA**.
 
-- Feature 1
-- Feature 2
-- Feature 3
+---
 
-## Educational Impact
+## Contexte et Objectifs
 
-[Educational aspects and impact]
+L’objectif principal de GalileoAR était de **rendre l’exploration spatiale et la localisation en temps réel plus engageante**, tout en proposant :  
 
-## User Interface
+- Une **carte interactive** où le joueur découvre l’environnement progressivement.  
+- Une **visualisation en réalité augmentée** des satellites Galileo autour de lui.  
+- Un **dashboard de benchmarking** pour analyser et améliorer la couverture des satellites.  
 
-![Interface Screenshot](/images/projects/galileoar/interface-1.jpg)
+---
 
-[Description of the user interface]
+## Fonctionnalités principales
 
-## AR Experience
+- **Exploration de la carte avec Fog of War** : l’utilisateur découvre progressivement le terrain en fonction de ses déplacements réels.  
+- **Extraction des données GPS et satellites** : récupération des informations en temps réel via le SDK Android (types de satellites, positions, signal, etc.).  
+- **Visualisation AR des satellites** : les satellites Galileo sont affichés en AR avec des informations détaillées.  
+- **Dashboard et analyse des performances** : consolidation des données de différents utilisateurs pour benchmarker la couverture et la précision des satellites.  
 
-<video controls width="100%">
-  <source src="/images/projects/galileoar/demo-video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+---
 
-## Technical Challenges
+## Implémentation
 
-[Technical challenges and solutions]
+![Screenshot GalileoAR](/images/projects/galileoar/screenshot-1.jpg)
 
-![Technical Implementation](/images/projects/galileoar/interface-2.jpg)
+![Screenshot GalileoAR](/images/projects/galileoar/screenshot-2.jpg)
+
+- **Moteur** : Unity 3D  
+- **Réalité augmentée** : ARCore  
+- **Cartographie** : Mapbox  
+- **Interface mobile** : Flutter  
+- **Analyse et monitoring** : Grafana  
+
+Les principaux défis techniques comprenaient :  
+- La synchronisation des données GPS et des satellites en temps réel.  
+- La visualisation en AR de manière fluide et interactive.  
+- La conception d’un dashboard clair et exploitable pour le benchmark.  
+
+---
+
+## Démonstration
+
+Video Demo -> 'https://drive.google.com/file/d/1IhxX77rz3bU8t_ah4LXpRy5p8tRTdKLi/view?usp=sharing'
+
+---
+
+## Perspectives
+
+- Ajouter des **fonctionnalités collaboratives**, où plusieurs utilisateurs peuvent interagir et explorer ensemble.  
+- Améliorer l’**optimisation des données AR** pour gérer plus de satellites et des terrains plus vastes.  
+- Intégrer des **alertes et notifications** en fonction de la position des satellites et des performances.  
+
+---
+
+## Remerciements
+
+Ce projet a été développé dans le cadre du **HackUPC 2024 à Barcelone**, pour le challenge proposé par **l’Agence Spatiale Européenne (ESA)**.  

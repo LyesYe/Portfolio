@@ -14,6 +14,7 @@ import type { Project, WindowState } from '@/lib/types';
 import { Clock } from '@/components/Clock';
 import BootSequence from '@/components/BootSequence';
 import LockScreen from '@/components/LockScreen';
+import { FakeCursor } from '@/components/FakeCursor';
 
 // Sample content for static windows
 const educationContent = `# Education
@@ -61,6 +62,7 @@ export default function HomePage() {
   const [isBooting, setIsBooting] = useState(true);
   const [showLockScreen, setShowLockScreen] = useState(false);
   const [showDesktop, setShowDesktop] = useState(false);
+  const [showFakeCursor, setShowFakeCursor] = useState(false);
 
   useEffect(() => {
     const loadProjects = async () => {
@@ -236,17 +238,37 @@ export default function HomePage() {
     }
   };
 
+  // Show fake cursor after desktop is fully loaded
+  useEffect(() => {
+    if (showDesktop && !isLoading) {
+      const timer = setTimeout(() => {
+        setShowFakeCursor(true);
+      }, 1000); // Wait 1 second after desktop loads
+      
+      return () => clearTimeout(timer);
+    }
+  }, [showDesktop, isLoading]);
+
+  const handleFakeCursorProjectsClick = () => {
+    handleIconDoubleClick('projects');
+  };
+
+  const handleFakeCursorComplete = () => {
+    setShowFakeCursor(false);
+  };
+
   return (
-    <main className="relative w-screen h-screen bg-black overflow-visible">
-      {/* Boot Sequence */}
-      {isBooting && <BootSequence onComplete={handleBootComplete} />}
-      
-      {/* Lock Screen */}
-      {showLockScreen && <LockScreen onLogin={handleLogin} />}
-      
-      {/* Desktop Interface */}
-      <AnimatePresence>
-        {showDesktop && (
+    <main className="h-screen w-screen overflow-hidden bg-black">
+      <AnimatePresence mode="wait">
+        {isBooting && (
+          <BootSequence key="boot" onComplete={handleBootComplete} />
+        )}
+        
+        {!isBooting && showLockScreen && (
+          <LockScreen key="lock" onLogin={handleLogin} />
+        )}
+        
+        {!isBooting && !showLockScreen && showDesktop && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -291,6 +313,14 @@ export default function HomePage() {
         
             {/* Dock */}
             <Dock onAppLaunch={handleIconDoubleClick} />
+            
+            {/* Fake Cursor Animation */}
+            {showFakeCursor && (
+              <FakeCursor 
+                onComplete={handleFakeCursorComplete}
+                onProjectsClick={handleFakeCursorProjectsClick}
+              />
+            )}
         
             {/* Loading Overlay for Projects */}
             <AnimatePresence>

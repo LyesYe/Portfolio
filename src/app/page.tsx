@@ -12,6 +12,8 @@ import { useWindowStore } from '@/store/useWindowStore';
 import { getProjects } from '@/lib/projects';
 import type { Project, WindowState } from '@/lib/types';
 import { Clock } from '@/components/Clock';
+import BootSequence from '@/components/BootSequence';
+import LockScreen from '@/components/LockScreen';
 
 // Sample content for static windows
 const educationContent = `# Education
@@ -56,6 +58,9 @@ export default function HomePage() {
   const { windows, openWindow, closeWindow, minimizeWindow, maximizeWindow, focusWindow, updateWindow } = useWindowStore();
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isBooting, setIsBooting] = useState(true);
+  const [showLockScreen, setShowLockScreen] = useState(false);
+  const [showDesktop, setShowDesktop] = useState(false);
 
   useEffect(() => {
     const loadProjects = async () => {
@@ -74,16 +79,28 @@ export default function HomePage() {
       }
     };
   
-    loadProjects();
-  }, []);
+    // Only load projects after login
+    if (showDesktop) {
+      loadProjects();
+    }
+  }, [showDesktop]);
+
+  const handleBootComplete = () => {
+    setIsBooting(false);
+    setShowLockScreen(true);
+  };
+
+  const handleLogin = () => {
+    setShowLockScreen(false);
+    setShowDesktop(true);
+  };
 
   const handleIconDoubleClick = (iconId: string) => {
     const centerX = Math.max(50, (window.innerWidth - 900) / 2);
     const centerY = Math.max(50, (window.innerHeight - 500) / 2);
     const windowCount = windows.filter(w => w.open).length;
-    const offsetX = windowCount * 50; // Increased from 30 to 50 for bigger horizontal spacing
-    // Add vertical variation - sometimes up, sometimes down
-    const verticalVariations = [-60, -30, 0, 30, 60]; // Different vertical offsets
+    const offsetX = windowCount * 50;
+    const verticalVariations = [-60, -30, 0, 30, 60];
     const offsetY = verticalVariations[windowCount % verticalVariations.length];
   
     switch (iconId) {
@@ -96,7 +113,7 @@ export default function HomePage() {
           minimized: false,
           maximized: false,
           x: centerX + offsetX,
-          y: centerY + offsetY, // Add vertical variation
+          y: centerY + offsetY,
           width: 900,
           height: 500,
         });
@@ -110,7 +127,7 @@ export default function HomePage() {
           minimized: false,
           maximized: false,
           x: centerX + offsetX,
-          y: centerY + offsetY, // Add vertical variation
+          y: centerY + offsetY,
           width: 900,
           height: 500,
         });
@@ -124,7 +141,7 @@ export default function HomePage() {
           minimized: false,
           maximized: false,
           x: centerX + offsetX,
-          y: centerY + offsetY, // Add vertical variation
+          y: centerY + offsetY,
           width: 900,
           height: 500,
         });
@@ -137,23 +154,22 @@ export default function HomePage() {
           open: true,
           minimized: false,
           maximized: false,
-          x: centerX + offsetX,
-          y: centerY + offsetY, // Add vertical variation
+          x: (window.innerWidth - 800) / 2,  // Center horizontally (800 is the width)
+          y: (window.innerHeight - 800) / 2, // Center vertically (800 is the height)
           width: 800,
-          height: 450,
+          height: 800,
         });
         break;
     }
   };
 
   const handleProjectOpen = (project: Project) => {
-    const centerX = window.innerWidth / 2 - 400;
-    const centerY = window.innerHeight / 2 - 225;
+    const centerX = window.innerWidth / 2 - 500;  // Updated to match new width
+    const centerY = window.innerHeight / 2 - 300; // Updated to match new height
   
     const windowCount = windows.filter(w => w.open).length;
-    const offsetX = windowCount * 50; // Increased from 30 to 50 for bigger horizontal spacing
-    // Add vertical variation - sometimes up, sometimes down
-    const verticalVariations = [-60, -30, 0, 30, 60]; // Different vertical offsets
+    const offsetX = windowCount * 50;
+    const verticalVariations = [-60, -30, 0, 30, 60];
     const offsetY = verticalVariations[windowCount % verticalVariations.length];
   
     const windowId = `project-${project.slug}`;
@@ -166,21 +182,18 @@ export default function HomePage() {
       minimized: false,
       maximized: false,
       x: centerX + offsetX,
-      y: centerY + offsetY, // Add vertical variation
-      width: 800,
-      height: 450,
+      y: centerY +  4*offsetY,
+      width: 800,  // Increased from 800
+      height: 800,  // Increased from 450
       data: project,
     });
     
-    // Focus the window after opening
     focusWindow(windowId);
   };
 
   const renderWindowContent = (window: WindowState) => {
-    console.log('renderWindowContent called for:', window.id, window.content);
     switch (window.content) {
       case 'education':
-        console.log('Rendering education content');
         return (
           <div className="h-full">
             <MarkdownRenderer content={educationContent} />
@@ -207,8 +220,6 @@ export default function HomePage() {
           />
         );
       case 'project':
-        console.log('Project case - window.data:', window.data);
-        console.log('Project case - window object:', window);
         return window.data ? (
           <ProjectViewer project={window.data} />
         ) : (
@@ -217,7 +228,6 @@ export default function HomePage() {
           </div>
         );
       default:
-        console.log('Default case reached for content:', window.content);
         return (
           <div className="flex items-center justify-center h-full">
             <p className="text-white">Content not found for: {typeof window.content === 'string' ? window.content : 'unknown'}</p>
@@ -228,69 +238,81 @@ export default function HomePage() {
 
   return (
     <main className="relative w-screen h-screen bg-black overflow-visible">
-      {/* Remove the old background pattern */}
+      {/* Boot Sequence */}
+      {isBooting && <BootSequence onComplete={handleBootComplete} />}
       
-      {/* Desktop and Windows Container */}
-      <div className="relative w-full h-full">
-        <Desktop onIconDoubleClick={handleIconDoubleClick} />
-        
-        {/* Windows */}
-        <AnimatePresence>
-          {windows
-            .filter(window => window.open)
-            .map((window) => {
-              console.log('About to render Window for:', window.id);
-              const content = renderWindowContent(window);
-              return (
-                <div key={window.id} className="relative w-full h-full">
-                  <Window
-                    key={window.id}
-                    id={window.id}
-                    title={window.title}
-                    position={{ x: window.x, y: window.y }}
-                    size={{ width: window.width, height: window.height }}
-                    isMinimized={window.minimized}
-                    isMaximized={window.maximized}
-                    zIndex={window.zIndex}
-                    onClose={() => closeWindow(window.id)}
-                    onMinimize={() => minimizeWindow(window.id)}
-                    onMaximize={() => maximizeWindow(window.id)}
-                    onFocus={() => focusWindow(window.id)}
-                    onPositionChange={(position) => updateWindow(window.id, { x: position.x, y: position.y })}
-                    onSizeChange={(size) => updateWindow(window.id, { width: size.width, height: size.height })}
-                  >
-                    {content}
-                  </Window>
-                </div>
-              );
-            })}
-        </AnimatePresence>
-      </div>
+      {/* Lock Screen */}
+      {showLockScreen && <LockScreen onLogin={handleLogin} />}
       
-      {/* Clock */}
-      <Clock />
-  
-      {/* Dock */}
-      <Dock onAppLaunch={handleIconDoubleClick} />
-  
-      {/* Loading Overlay */}
+      {/* Desktop Interface */}
       <AnimatePresence>
-        {isLoading && (
+        {showDesktop && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999]"
+            transition={{ duration: 1 }}
+            className="relative w-full h-full"
           >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-white/10 backdrop-blur-md rounded-lg p-8 flex flex-col items-center space-y-4"
-            >
-              <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              <p className="text-white text-sm">Loading portfolio...</p>
-            </motion.div>
+            <Desktop onIconDoubleClick={handleIconDoubleClick} />
+            
+            {/* Windows */}
+            <AnimatePresence>
+              {windows
+                .filter(window => window.open)
+                .map((window) => {
+                  const content = renderWindowContent(window);
+                  return (
+                    <div key={window.id} className="relative w-full h-full">
+                      <Window
+                        key={window.id}
+                        id={window.id}
+                        title={window.title}
+                        position={{ x: window.x, y: window.y }}
+                        size={{ width: window.width, height: window.height }}
+                        isMinimized={window.minimized}
+                        isMaximized={window.maximized}
+                        zIndex={window.zIndex}
+                        onClose={() => closeWindow(window.id)}
+                        onMinimize={() => minimizeWindow(window.id)}
+                        onMaximize={() => maximizeWindow(window.id)}
+                        onFocus={() => focusWindow(window.id)}
+                        onPositionChange={(position) => updateWindow(window.id, { x: position.x, y: position.y })}
+                        onSizeChange={(size) => updateWindow(window.id, { width: size.width, height: size.height })}
+                      >
+                        {content}
+                      </Window>
+                    </div>
+                  );
+                })}
+            </AnimatePresence>
+            
+            {/* Clock */}
+            <Clock />
+        
+            {/* Dock */}
+            <Dock onAppLaunch={handleIconDoubleClick} />
+        
+            {/* Loading Overlay for Projects */}
+            <AnimatePresence>
+              {isLoading && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999]"
+                >
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    className="bg-white/10 backdrop-blur-md rounded-lg p-8 flex flex-col items-center space-y-4"
+                  >
+                    <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <p className="text-white text-sm">Loading portfolio...</p>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>

@@ -192,7 +192,7 @@ export function Dock({ onAppLaunch }: DockProps) {
                 return (
                   <motion.div 
                     key={app.id} 
-                    className="relative"
+                    className="relative flex items-center justify-center" // Added flex centering
                     initial={{ scale: 0, opacity: 0, y: 50 }}
                     animate={{ scale: 1, opacity: 1, y: 0 }}
                     transition={{ 
@@ -203,6 +203,49 @@ export function Dock({ onAppLaunch }: DockProps) {
                       damping: 15
                     }}
                   >
+                    {/* Tooltip - moved outside button to avoid transform conflicts */}
+                    <AnimatePresence>
+                      {isHovered && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                          animate={{ opacity: 1, y: -15, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.8 }}
+                          transition={{ duration: 0.15 }}
+                          className={cn(
+                            "absolute bottom-full mb-2",
+                            "px-3 py-1.5 rounded-lg",
+                            "bg-black/90 backdrop-blur-sm",
+                            "text-white text-sm font-medium",
+                            "border border-white/20",
+                            "shadow-xl",
+                            "pointer-events-none",
+                            "whitespace-nowrap z-[200]"
+                          )}
+                          style={{
+                            left: '50%',
+                            transform: 'translateX(-50%) translateY(-80px)', // Fixed positioning
+                            top: 'auto',
+                            bottom: '100%'
+                          }}
+                        >
+                          {app.title}
+                          {isOpen && (
+                            <span className="ml-2 text-xs opacity-75">
+                              {isMinimized ? '(Minimized)' : '(Active)'}
+                            </span>
+                          )}
+                          {/* Tooltip arrow */}
+                          <div 
+                            className="absolute top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black/90" 
+                            style={{
+                              left: '25%', // Adjusted arrow position
+                              transform: 'translateX(-25%)'
+                            }}
+                          />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
                     {/* Outer glow ring for open windows */}
                     {isOpen && (
                       <motion.div
@@ -383,17 +426,21 @@ export function Dock({ onAppLaunch }: DockProps) {
                           initial={{ opacity: 0, y: 10, scale: 0.8 }}
                           animate={{ opacity: 1, y: -15, scale: 1 }}
                           exit={{ opacity: 0, y: 10, scale: 0.8 }}
-                          transition={{ duration: 0.15 }} // Reduced from default to 0.15
+                          transition={{ duration: 0.15 }}
                           className={cn(
-                            "absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2",
+                            "absolute bottom-full mb-2",
                             "px-3 py-1.5 rounded-lg",
-                            "bg-black/80 backdrop-blur-sm",
+                            "bg-black/90 backdrop-blur-sm",
                             "text-white text-sm font-medium",
                             "border border-white/20",
                             "shadow-xl",
                             "pointer-events-none",
-                            "whitespace-nowrap"
+                            "whitespace-nowrap z-[200]"
                           )}
+                          style={{
+                            left: '50%',
+                            transform: 'translateX(-50%)'
+                          }}
                         >
                           {app.title}
                           {isOpen && (
@@ -402,7 +449,13 @@ export function Dock({ onAppLaunch }: DockProps) {
                             </span>
                           )}
                           {/* Tooltip arrow */}
-                          <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black/80" />
+                          <div 
+                            className="absolute top-full w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black/90" 
+                            style={{
+                              left: '25%', // Adjusted arrow position
+                              transform: 'translateX(-25%)'
+                            }}
+                          />
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -481,10 +534,73 @@ export function Dock({ onAppLaunch }: DockProps) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: -8 }}
                     exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.1 }} // Reduced from default to 0.1
-                    className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-50"
+                    transition={{ duration: 0.1 }}
+                    className="absolute -top-12 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-[200]"
+                    style={{
+                      left: '50%',
+                      transform: 'translateX(-50%)'
+                    }}
                   >
                     Connected
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Apply the same fix to battery, clock, and settings tooltips */}
+              <AnimatePresence>
+                {hoveredApp === 'battery' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: -8 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.1 }}
+                    className="absolute -top-12 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-[200]"
+                    style={{
+                      left: '50%',
+                      transform: 'translateX(-50%)'
+                    }}
+                  >
+                    85% Charged
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <AnimatePresence>
+                {hoveredApp === 'clock' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: -8 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.1 }}
+                    className="absolute -top-12 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-[200]"
+                    style={{
+                      left: '50%',
+                      transform: 'translateX(-50%)'
+                    }}
+                  >
+                    {isClient ? currentTime.toLocaleDateString([], { 
+                      weekday: 'short', 
+                      month: 'short', 
+                      day: 'numeric' 
+                    }) : 'Loading...'}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <AnimatePresence>
+                {hoveredApp === 'settings' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: -8 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.1 }}
+                    className="absolute -top-12 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-[200]"
+                    style={{
+                      left: '50%',
+                      transform: 'translateX(-50%)'
+                    }}
+                  >
+                    Settings
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -509,8 +625,8 @@ export function Dock({ onAppLaunch }: DockProps) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: -8 }}
                     exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.1 }} // Reduced from default to 0.1
-                    className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-50"
+                    transition={{ duration: 0.1 }}
+                    className="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-[200]"
                   >
                     85% Charged
                   </motion.div>
@@ -544,8 +660,8 @@ export function Dock({ onAppLaunch }: DockProps) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: -8 }}
                     exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.1 }} // Reduced from default to 0.1
-                    className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-50"
+                    transition={{ duration: 0.1 }}
+                    className="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-[200]"
                   >
                     {isClient ? currentTime.toLocaleDateString([], { 
                       weekday: 'short', 
@@ -576,8 +692,8 @@ export function Dock({ onAppLaunch }: DockProps) {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: -8 }}
                     exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.1 }} // Reduced from default to 0.1
-                    className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-50"
+                    transition={{ duration: 0.1 }}
+                    className="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded whitespace-nowrap pointer-events-none z-[200]"
                   >
                     Settings
                   </motion.div>

@@ -6,6 +6,35 @@ import { Rnd } from 'react-rnd';
 import { X, Minus, Square, Maximize2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+// Function to get window title bar color based on window ID and minimized state
+const getWindowTitleBarColor = (windowId: string, isMinimized: boolean = false) => {
+  const baseColors = {
+    education: 'bg-gradient-to-r from-blue-700 to-purple-800',
+    experience: 'bg-gradient-to-r from-green-700 to-emerald-800', 
+    info: 'bg-gradient-to-r from-orange-700 to-red-800',
+    projects: 'bg-gradient-to-r from-cyan-700 to-blue-800'
+  };
+  
+  const lightColors = {
+    education: 'bg-gradient-to-r from-blue-500 to-purple-600',
+    experience: 'bg-gradient-to-r from-green-500 to-emerald-600',
+    info: 'bg-gradient-to-r from-orange-500 to-red-600', 
+    projects: 'bg-gradient-to-r from-cyan-500 to-blue-600'
+  };
+  
+  let colorKey: keyof typeof baseColors | '' = '';
+  if (windowId.includes('education')) colorKey = 'education';
+  else if (windowId.includes('experience')) colorKey = 'experience';
+  else if (windowId.includes('info')) colorKey = 'info';
+  else if (windowId.includes('projects') || windowId.includes('project-')) colorKey = 'projects';
+  
+  if (colorKey) {
+    return isMinimized ? lightColors[colorKey] : baseColors[colorKey];
+  }
+  
+  return 'bg-gray-800/80'; // Default color
+};
+
 interface WindowProps {
   id: string;
   title: string;
@@ -39,8 +68,6 @@ export function Window({
   onPositionChange,
   onSizeChange,
 }: WindowProps) {
-  console.log('Window component rendering:', { id, title, position, size, isMinimized, zIndex });
-  console.log('isMinimized value:', isMinimized, 'type:', typeof isMinimized);
   const [isMobile, setIsMobile] = useState(false);
   const windowRef = useRef<Rnd>(null);
 
@@ -56,6 +83,7 @@ export function Window({
 
   // Calculate dock height - mobile: 64px (h-16), desktop: 56px (h-14)
   const dockHeight = isMobile ? 64 : 56;
+  const titleBarColor = getWindowTitleBarColor(id, isMinimized);
 
   // Mobile: full screen windows
   if (isMobile) {
@@ -76,8 +104,11 @@ export function Window({
           >
             <div className="flex flex-col h-full bg-gray-900/95 backdrop-blur-xl border border-gray-700/50">
               {/* Mobile Header */}
-              <div className="flex items-center justify-between p-4 border-b border-gray-700/30 bg-gray-800/80">
-                <h3 className="text-gray-100 font-medium truncate flex-1 mr-4">
+              <div className={cn(
+                "flex items-center justify-between p-4 border-b border-gray-700/30",
+                titleBarColor
+              )}>
+                <h3 className="text-white font-medium truncate flex-1 mr-4">
                   {title}
                 </h3>
                 <div className="flex items-center space-x-2">
@@ -170,8 +201,11 @@ export function Window({
             }}
           >
             {/* Window Header */}
-            <div className="window-drag-handle flex items-center justify-between p-3 border-b border-gray-700/30 bg-gray-800/80">
-              <h3 className="text-gray-100 font-medium truncate flex-1 mr-4 text-responsive">
+            <div className={cn(
+              "window-drag-handle flex items-center justify-between p-3 border-b border-gray-700/30",
+              titleBarColor
+            )}>
+              <h3 className="text-white font-medium truncate flex-1 mr-4 text-responsive">
                 {title}
               </h3>
               <div className="flex items-center space-x-1">

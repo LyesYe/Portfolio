@@ -1,0 +1,114 @@
+---
+slug: '3d-mesh-morphing'
+title: '3D Mesh Morphing — Techniques avancées de déformation'
+stack: ['C#', 'Unity 3D']
+tags: ['Informatique graphique', 'Modélisation 3D', 'Mesh Processing', 'Morphing']
+category: 'Projets de recherche'
+cover: '/images/projects/3d-mesh-morphing/morphing-1.png'
+gallery:
+  - '/images/projects/3d-mesh-morphing/morphing-1.png'
+  - '/images/projects/3d-mesh-morphing/morphing-2.jpg'
+  - '/images/projects/3d-mesh-morphing/morphing-demo.mp4'
+links:
+  - label: 'GitHub'
+    href: 'https://github.com/LyesYe/3D-Mesh-Morphing'
+  - label: 'Vidéo Démo'
+    href: 'https://www.linkedin.com/posts/khoumeri-lyes-mehdi-2156a61ab_this-is-a-60sec-video-of-our-end-of-m1-project-activity-7244642314906664960-co9B?utm_source=share&utm_medium=member_desktop'
+---
+
+## Résumé
+
+Réalisé en collaboration avec **@sami**, ce projet explore le domaine du **morphing de maillages 3D**, en utilisant **Unity** pour implémenter et comparer différentes techniques de déformation.  
+Trois approches principales ont été étudiées :  
+
+- **Interpolation linéaire**  
+- **Morphing par fonctions à base radiale (RBF)**  
+- **Morphing par fonctions de distance signée (SDF)**  
+
+Le projet met en évidence les avantages et limites de chaque méthode, à travers une implémentation pratique et des démonstrations visuelles interactives.
+
+---
+
+## Contexte et Objectifs
+
+Le **morphing de maillages 3D** consiste à transformer un modèle en un autre de manière fluide et continue.  
+Ce procédé est particulièrement utilisé dans :  
+
+- l’**animation 3D**,  
+- la **modélisation organique**,  
+- et les **effets spéciaux**.  
+
+L’objectif de ce projet était double :  
+1. **Comprendre et comparer** plusieurs techniques de morphing en termes de réalisme et de complexité.  
+2. **Mettre en œuvre** certaines de ces méthodes dans Unity pour évaluer leurs performances en temps réel.  
+
+---
+
+## Méthodologie
+
+### 1. Interpolation linéaire
+
+- **Principe** : pour chaque sommet du maillage source, on calcule la position intermédiaire en fonction du sommet correspondant du maillage cible.  
+V_morph = (1 - t) * V_source + t * V_cible avec 0 <= t <= 1
+- **Avantages** : simplicité, rapidité, efficacité en temps réel.  
+- **Limites** : peu adaptée aux formes complexes, déformations peu naturelles.  
+
+---
+
+### 2. Morphing par fonctions à base radiale (RBF)
+
+- **Principe** : définir des points de contrôle sur les deux maillages, puis générer un champ de déformation lisse en utilisant des fonctions radiales.  
+phi(x) = sum_{i=1..N} w_i * K( || x - c_i || )
+- **Avantages** : idéal pour des **déformations organiques** et des animations de personnages.  
+- **Limites** : plus coûteux en calcul, nécessite une bonne sélection des points de contrôle.  
+- **État du projet** : méthode prévue mais non encore implémentée.  
+
+---
+
+### 3. Morphing par fonctions de distance signée (SDF)
+
+- **Principe** : représenter chaque forme par un **champ de distance** indiquant, pour chaque point de l’espace, sa distance par rapport à la surface.  
+- **Interpolation** :  
+SDF_morph = (1 - t) * SDF_source + t * SDF_cible
+  Le maillage final est ensuite reconstruit via des algorithmes comme **Marching Cubes**.  
+- **Avantages** : permet des morphings **de haute qualité**, y compris des **changements topologiques** (fusion ou séparation d’éléments).  
+- **Limites** : plus lourd en calcul et en mémoire.  
+
+---
+
+## Implémentation
+
+![Morphing Process](/images/projects/3d-mesh-morphing/morphing-1.jpg)
+
+L’implémentation a été réalisée sous **Unity 3D** avec **C#**.  
+Deux méthodes ont été concrètement implémentées :  
+
+- **Interpolation linéaire** (simple et rapide).  
+- **Morphing par SDF** (plus complexe mais offrant une grande qualité visuelle).  
+
+Ces implémentations démontrent le potentiel d’intégration dans des environnements interactifs ou des moteurs de jeux.  
+
+---
+
+## Démonstration en temps réel
+
+- Vidéo Démo -> 'https://www.linkedin.com/posts/khoumeri-lyes-mehdi-2156a61ab_this-is-a-60sec-video-of-our-end-of-m1-project-activity-7244642314906664960-co9B?utm_source=share&utm_medium=member_desktop'
+
+---
+
+## Analyse des Résultats
+
+![Results Comparison](/images/projects/3d-mesh-morphing/morphing-2.jpg)
+
+- **Interpolation linéaire** : efficace pour des morphings simples, mais limitée en réalisme.  
+- **Morphing par SDF** : résultats de haute qualité, capable de gérer des transformations complexes et topologiques.  
+
+Cette comparaison met en lumière le compromis entre **simplicité** et **puissance expressive**.  
+
+---
+
+## Perspectives
+
+- Implémenter la méthode basée sur les **RBF** pour enrichir la palette des morphings possibles.  
+- Améliorer les performances pour une utilisation en **VR/AR** ou dans des environnements temps réel.  
+- Étendre l’approche à des cas concrets en **animation de personnages** et en **jeux vidéo**.  

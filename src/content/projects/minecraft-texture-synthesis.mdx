@@ -1,0 +1,106 @@
+---
+slug: 'minecraft-texture-synthesis'
+title: 'Synthèse de Textures Minecraft — Tiling et Blending avancés'
+stack: ['GLSL', 'RenderDoc']
+tags: ['Informatique graphique', 'Shaders', 'Textures', 'Tiling', 'Blending']
+category: 'Projets de recherche'
+cover: '/images/projects/minecraft-texture-synthesis/tiling-1.jpg'
+gallery:
+  - '/images/projects/minecraft-texture-synthesis/tiling-1.jpg'
+  - '/images/projects/minecraft-texture-synthesis/tiling-2.jpg'
+  - '/images/projects/minecraft-texture-synthesis/tiling-3.jpg'
+links:
+  - label: 'GitHub'
+    href: 'https://github.com/LyesYe/Minecraft-Texture-Synthesis-in-real-time?tab=readme-ov-file'
+---
+
+## Résumé
+
+Ce projet porte sur la **synthèse de textures dans Minecraft** en utilisant la version 4 des **Complementary Shaders**, avec un accent particulier sur les techniques de **Tiling** et de **Blending**.  
+Initialement développé par **Nicolas Lutz**, ce travail a été poursuivi et amélioré dans le cadre d’un **stage à l’Université de Sherbrooke**.  
+
+L’objectif principal était d’optimiser et de perfectionner la génération de textures afin de réduire la **répétition visuelle** et d’améliorer l’**immersion graphique** du jeu.
+
+---
+
+## Contexte et Objectifs
+
+Minecraft est célèbre pour son esthétique **pixelisée et cubique**, reposant sur des **atlas de textures**.  
+Cependant, cette répétition engendre souvent des motifs visibles peu réalistes, notamment sur de grandes surfaces composées du même bloc.  
+
+Pour résoudre ce problème, les techniques de **Tiling** et de **Blending** offrent une solution efficace :  
+- **Tiling** : recouvrir une surface en répétant une texture.  
+- **Blending** : lisser la transition entre textures adjacentes pour réduire les coutures.  
+
+**Objectifs du projet :**  
+1. Améliorer la qualité visuelle des textures par une meilleure gestion du Tiling et du Blending.  
+2. Optimiser les shaders GLSL afin de maintenir une exécution fluide en temps réel.  
+3. Corriger les artefacts et bugs liés au rendu initial.  
+
+---
+
+## Méthodologie et Implémentation
+
+### 1. Fonction `TilingAndBlending`
+
+Le cœur du projet repose sur la fonction `TilingAndBlending`, qui gère le **tuilage** et le **mélange** des textures en fonction :  
+- des coordonnées UV,  
+- et de la position des blocs dans l’espace.  
+
+Cette fonction, conçue à l’origine par Nicolas Lutz, a été **optimisée** et **adaptée** pour prendre en charge différents types de blocs.  
+
+---
+
+### 2. Catégorisation des blocs
+
+Les blocs ont été regroupés en trois catégories :  
+- **Blocs normaux**  
+- **Blocs à 4 briques**  
+- **Blocs à 2 briques**  
+
+Chaque groupe utilise une variante spécifique de Tiling et Blending pour obtenir des résultats adaptés à ses caractéristiques.  
+
+---
+
+### 3. Optimisations techniques
+
+- **Amélioration de la gestion des coordonnées UV** : alignement plus précis des textures.  
+- **Correction de bugs et artefacts** : suppression des anomalies visuelles lors des transitions.  
+- **Adaptation aux différents blocs** : ajustement fin pour garantir la cohérence graphique.  
+
+---
+
+## Résultats
+
+Les optimisations réalisées ont conduit à une **amélioration significative du rendu visuel** :  
+
+- Moins de répétition visible dans les textures.  
+- Transitions plus fluides entre les blocs adjacents.  
+- Esthétique plus naturelle et immersive dans Minecraft.  
+
+![Results Comparison](/images/projects/minecraft-texture-synthesis/tiling-2.jpg)
+
+![Results Comparison](/images/projects/minecraft-texture-synthesis/tiling-3.jpg)
+
+![Results Comparison](/images/projects/minecraft-texture-synthesis/tiling-1.jpg)
+
+---
+
+## Technologies utilisées
+
+- **GLSL** : écriture et optimisation des shaders.  
+- **RenderDoc** : analyse et débogage des pipelines de rendu.  
+
+---
+
+## Perspectives
+
+- Étendre les méthodes de Tiling et Blending à d’autres types de blocs et shaders.  
+- Adapter ces techniques pour un usage en **VR/AR** ou dans d’autres moteurs de jeu.  
+- Explorer l’intégration de **bruit procédural** pour encore plus de variété dans la génération des textures.  
+
+---
+
+## Remerciements
+
+Ce projet a été réalisé dans le cadre d’un **stage à l’Université de Sherbrooke**, sous la supervision de **Nicolas Lutz**, dont l’implémentation originale a servi de base.  

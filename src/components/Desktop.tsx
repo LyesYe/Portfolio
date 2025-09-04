@@ -14,7 +14,14 @@ import {
   Trash2,
   Monitor,
   Wifi,
-  Battery
+  Battery,
+  ChevronDown,
+  Code,
+  Zap,
+  Sparkles,
+  GraduationCap,
+  Briefcase,
+  User
 } from 'lucide-react';
 
 interface DesktopProps {
@@ -35,10 +42,11 @@ export function Desktop({ onIconDoubleClick }: DesktopProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isClient, setIsClient] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
 
   // Generate static star data that won't change on re-renders
   const starData = useMemo(() => {
-    return [...Array(80)].map((_, i) => ({
+    return [...Array(120)].map((_, i) => ({
       id: i,
       left: Math.random() * 100,
       top: Math.random() * 70,
@@ -51,11 +59,11 @@ export function Desktop({ onIconDoubleClick }: DesktopProps) {
 
   // Generate static shooting star data
   const shootingStarData = useMemo(() => {
-    return [...Array(3)].map((_, i) => ({
+    return [...Array(5)].map((_, i) => ({
       id: i,
       left: Math.random() * 50,
       top: Math.random() * 30,
-      delay: i * 15 + Math.random() * 10,
+      delay: i * 12 + Math.random() * 8,
     }));
   }, []);
 
@@ -77,163 +85,317 @@ export function Desktop({ onIconDoubleClick }: DesktopProps) {
     return () => clearInterval(timer);
   }, []);
 
+  // Auto-hide intro after 8 seconds - REMOVE THIS
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShowIntro(false);
+  //   }, 8000);
+  //   return () => clearTimeout(timer);
+  // }, []);
+
   return (
     <div className="relative w-full h-full overflow-hidden">
       {/* Desktop Wallpaper */}
       <div className="absolute inset-0">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-green-900/30 to-black" />
+        {/* Enhanced gradient background */}
+        <div className="absolute inset-0 bg-black" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-emerald-900/10 to-transparent" />
+        
+        {/* Animated particles */}
+        <div className="absolute inset-0">
+          {[...Array(30)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-emerald-400/30 rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [-20, -100],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: Math.random() * 3 + 2,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+            />
+          ))}
+        </div>
         
         {/* Mountain silhouette */}
         <div className="absolute bottom-0 left-0 right-0 h-1/3">
           <svg viewBox="0 0 1200 400" className="w-full h-full">
             <path 
               d="M0,400 L0,200 L200,100 L400,150 L600,80 L800,120 L1000,60 L1200,100 L1200,400 Z" 
-              fill="rgba(0,0,0,0.3)"
+              fill="rgba(0,0,0,0.4)"
             />
             <path 
               d="M0,400 L0,250 L150,180 L350,220 L550,160 L750,200 L950,140 L1200,180 L1200,400 Z" 
-              fill="rgba(0,0,0,0.2)"
+              fill="rgba(0,0,0,0.3)"
             />
           </svg>
         </div>
         
-        {/* Stars */}
-        <div className="absolute inset-0">
-          {starData.map((star) => (
-            <motion.div
-              key={star.id}
-              className="absolute rounded-full"
-              style={{
-                left: `${star.left}%`,
-                top: `${star.top}%`,
-                width: `${star.size}px`,
-                height: `${star.size}px`,
-                background: `radial-gradient(circle, rgba(255,255,255,${star.brightness}) 0%, rgba(200,220,255,${star.brightness * 0.8}) 50%, transparent 100%)`,
-                boxShadow: `0 0 ${star.size * 2}px rgba(255,255,255,${star.brightness * 0.5})`,
-              }}
-              animate={{
-                opacity: [0.2, 1, 0.2],
-                scale: [0.8, 1.2, 0.8],
-                filter: [
-                  `brightness(${star.brightness})`,
-                  `brightness(${star.brightness * 1.5})`,
-                  `brightness(${star.brightness})`
-                ]
-              }}
-              transition={{
-                duration: star.twinkleSpeed,
-                repeat: Infinity,
-                delay: star.delay,
-                ease: "easeInOut"
-              }}
-            />
-          ))}
-          
-          {/* Shooting stars */}
-          {shootingStarData.map((shootingStar) => (
-            <motion.div
-              key={`shooting-${shootingStar.id}`}
-              className="absolute w-1 h-1 bg-white rounded-full"
-              style={{
-                left: `${shootingStar.left}%`,
-                top: `${shootingStar.top}%`,
-              }}
-              animate={{
-                x: [0, 200],
-                y: [0, 100],
-                opacity: [0, 1, 0],
-                scale: [0, 1, 0]
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                delay: shootingStar.delay,
-                ease: "easeOut"
-              }}
-            />
-          ))}
-        </div>
-        
-        {/* Clouds */}
-        <div className="absolute inset-0 opacity-20">
-          <motion.div
-            className="absolute top-20 left-10 w-32 h-16 bg-white rounded-full blur-sm"
-            animate={{ x: [0, 100, 0] }}
-            transition={{ duration: 20, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute top-40 right-20 w-24 h-12 bg-white rounded-full blur-sm"
-            animate={{ x: [0, -80, 0] }}
-            transition={{ duration: 25, repeat: Infinity, delay: 5 }}
-          />
-        </div>
+        {/* Enhanced stars */}
+        {isClient && (
+          <div className="absolute inset-0">
+            {starData.map((star) => (
+              <motion.div
+                key={star.id}
+                className="absolute rounded-full bg-white"
+                style={{
+                  left: `${star.left}%`,
+                  top: `${star.top}%`,
+                  width: `${star.size}px`,
+                  height: `${star.size}px`,
+                }}
+                animate={{
+                  opacity: [star.brightness * 0.3, star.brightness, star.brightness * 0.3],
+                  scale: [0.8, 1.2, 0.8],
+                }}
+                transition={{
+                  duration: star.twinkleSpeed,
+                  repeat: Infinity,
+                  delay: star.delay,
+                }}
+              />
+            ))}
+            
+            {/* Enhanced shooting stars */}
+            {shootingStarData.map((star) => (
+              <motion.div
+                key={star.id}
+                className="absolute w-1 h-1 bg-cyan-300 rounded-full"
+                style={{
+                  left: `${star.left}%`,
+                  top: `${star.top}%`,
+                }}
+                animate={{
+                  x: [0, 300],
+                  y: [0, 150],
+                  opacity: [0, 1, 0],
+                  scale: [0, 1, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: star.delay,
+                  ease: "easeOut",
+                }}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Desktop Icons - REMOVED */}
-      {/* Commented out the desktop icons section
-      {!isMobile && (
-        <div className="absolute inset-0 pointer-events-none">
-          {desktopIcons.map((iconData) => (
-            <motion.div
-              key={iconData.id}
-              className="absolute pointer-events-auto"
-              style={{ left: iconData.x, top: iconData.y }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 + Math.random() * 0.5 }}
-            >
-              <Icon
-                id={iconData.id}
-                title={iconData.title}
-                icon={iconData.icon}
-                onDoubleClick={() => onIconDoubleClick(iconData.id)}
-              />
-            </motion.div>
-          ))}
-        </div>
-      )}
-      */}
+      {/* Desktop Icons */}
+      <div className="absolute inset-0 p-4">
+        {desktopIcons.map((icon) => (
+          <div
+            key={icon.id}
+            className="absolute"
+            style={{ left: icon.x, top: icon.y }}
+          >
+            <Icon
+              id={icon.id}
+              title={icon.title}
+              icon={icon.icon}
+              onDoubleClick={() => onIconDoubleClick(icon.id)}
+            />
+          </div>
+        ))}
+      </div>
 
-      {/* Main content area with name and title */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-        {/* Name */}
+      {/* Enhanced Central Content */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4">
+        {/* Animated background glow */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="text-center mb-8"
+          className="absolute inset-0 bg-gradient-radial from-cyan-500/10 via-transparent to-transparent"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+          }}
+        />
+        
+        {/* Main intro section */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: showIntro ? 1 : 0.7, scale: showIntro ? 1 : 0.95 }}
+          transition={{ duration: 0.3 }}
+          className="text-center mb-8 relative z-10"
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-4 drop-shadow-2xl">
-            Lyes KHOUMERI
-          </h1>
+          {/* Floating icons */}
+          <div className="absolute -top-20 left-1/2 transform -translate-x-1/2">
+            <motion.div
+              animate={{
+                y: [-10, 10, -10],
+                rotate: [0, 5, -5, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+              }}
+              className="flex space-x-4 text-cyan-400/60"
+            >
+              <Code className="w-6 h-6" />
+              <Zap className="w-6 h-6" />
+              <Sparkles className="w-6 h-6" />
+            </motion.div>
+          </div>
+          
+          {/* Name with enhanced animation */}
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.5 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 drop-shadow-2xl"
+          >
+            <motion.span
+              className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent"
+              animate={{
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+              }}
+            >
+              Lyes KHOUMERI
+            </motion.span>
+          </motion.h1>
+          
+          {/* Animated underline */}
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: '100%' }}
-            transition={{ duration: 1, delay: 1.5 }}
-            className="h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto"
+            transition={{ duration: 0.3, delay: 1.5 }}
+            className="h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto mb-6"
           />
         </motion.div>
 
-        {/* Professional title */}
+        {/* Professional title with typewriter effect */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: showIntro ? 1 : 0.8, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="text-center"
+          className="text-center relative z-10"
         >
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-light text-gray-300 mb-2 drop-shadow-lg">
-            XR & Computer Graphics Developer
-          </h2>
+          <motion.h2
+            className="text-xl md:text-2xl lg:text-3xl font-light text-gray-300 mb-4 drop-shadow-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.5 }}
+          >
+            XR & Computer Graphics Engineer
+          </motion.h2>
+          
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 2 }}
-            className="text-base md:text-lg text-gray-400 font-light tracking-wider drop-shadow-lg"
+            className="text-base md:text-lg text-gray-400 font-light tracking-wider drop-shadow-lg mb-6"
           >
             Creating Immersive Digital Experiences
           </motion.p>
+          
+          {/* Interactive taglines */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: showIntro ? 1 : 0.6, y: 0 }}
+            transition={{ duration: 1, delay: 2.5 }}
+            className="flex flex-wrap justify-center gap-4 text-sm text-cyan-300/80"
+          >
+            {['WebXR', 'Unity', 'Three.js', 'Computer Vision', 'Real-time Graphics'].map((tech, index) => (
+              <motion.span
+                key={tech}
+                className="px-3 py-1 bg-white/10 rounded-full border border-cyan-400/30 backdrop-blur-sm"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 3 + index * 0.1 }}
+                whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.15)' }}
+              >
+                {tech}
+              </motion.span>
+            ))}
+          </motion.div>
         </motion.div>
+        
+        {/* Call to action */}
+        {showIntro && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 4 }}
+            className="mt-8 text-center relative z-10"
+          >
+            <motion.div
+              className="px-6 py-4 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-lg border border-cyan-400/30 backdrop-blur-sm"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5, delay: 4.2 }}
+            >
+              <motion.div
+                className="flex items-center justify-center mb-2"
+                animate={{ y: [0, -2, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <ChevronDown className="w-5 h-5 text-cyan-400 mr-2 rotate-180" />
+                <span className="text-white font-medium text-lg">Getting Started</span>
+                <ChevronDown className="w-5 h-5 text-cyan-400 ml-2 rotate-180" />
+              </motion.div>
+              <p className="text-gray-300 text-sm mb-3">
+                Click on the dock icons below to explore:
+              </p>
+              <div className="flex flex-wrap justify-center gap-2 text-xs text-cyan-300/80 mb-4">
+                <span className="px-2 py-1 bg-blue-500/20 rounded border border-blue-400/30 flex items-center gap-1">
+                  <GraduationCap className="w-3 h-3" /> Education
+                </span>
+                <span className="px-2 py-1 bg-green-500/20 rounded border border-green-400/30 flex items-center gap-1">
+                  <Briefcase className="w-3 h-3" /> Experience
+                </span>
+                <span className="px-2 py-1 bg-orange-500/20 rounded border border-orange-400/30 flex items-center gap-1">
+                  <User className="w-3 h-3" /> About Me
+                </span>
+                <span className="px-2 py-1 bg-cyan-500/20 rounded border border-cyan-400/30 flex items-center gap-1">
+                  <FolderOpen className="w-3 h-3" /> Projects
+                </span>
+              </div>
+              {/* Arrow pointing to dock */}
+              <motion.div
+                className="flex justify-center"
+                animate={{ y: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <ChevronDown className="w-6 h-6 text-cyan-400" />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+        
+        {/* Scroll indicator */}
+        {showIntro && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 5 }}
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          >
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="text-white/60 text-xs text-center"
+            >
+              <ChevronDown className="w-4 h-4 mx-auto mb-1" />
+              <span>Scroll to explore</span>
+            </motion.div>
+          </motion.div>
+        )}
       </div>
 
       {/* Desktop Grid (subtle) */}
